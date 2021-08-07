@@ -1,0 +1,38 @@
+---
+title: "Set up a Twitter Bot using rtweet and GitHub actions in 3 easy steps"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Create a Twitter Developer app
+2. Create a Twitter account for your bot
+3. Authenticate the Twitter bot account with your app 
+4. Set up GitHub actions to tweet out regularly
+
+
+```{r}
+library(rvest)
+
+
+panels <- read_html("https://www.riddles.com/riddle-of-the-day") %>% 
+  html_nodes(".panel")  
+
+
+riddle <- panels %>% 
+  html_nodes(".orange_dk_span") %>% 
+  html_text() %>% 
+  .[1]
+
+riddle_link <- panels %>% 
+  html_nodes(".panel-heading")%>% 
+  html_nodes("a") %>% 
+  html_attr("href") %>% 
+  paste0("https://www.riddles.com", .) %>% 
+  .[1]
+  
+
+```
+
