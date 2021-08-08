@@ -110,8 +110,8 @@ auth_bot <- function(consumer_key, consumer_secret){
     } else{
       usethis::ui_done("Success. Your access code token and secret are ready:")
       
-      usethis::ui_info(paste0("Access Token: ", access_token$oauth_token))
-      usethis::ui_info(paste0("Access Secret: ", access_token$oauth_token_secret))
+      usethis::ui_code(paste0("access_token=", access_token$oauth_token))
+      usethis::ui_code(paste0("access_secret=", access_token$oauth_token_secret))
       
       message("Make sure to note them down somewhere!")
       
@@ -124,5 +124,5 @@ auth_bot <- function(consumer_key, consumer_secret){
 ### Just Run this function with your main account consumer key and secret
 ### In my case I saved both of those values in my environment
 ### But you can loa them in however you want
-# auth_bot(Sys.getenv("consumer_key"), Sys.getenv("consumer_secret"))
+auth_bot(Sys.getenv("consumer_key"), Sys.getenv("consumer_secret"))
 
