@@ -2,6 +2,7 @@ library(rvest)
 library(dplyr)
 library(stringr)
 library(rtweet)
+library(purrr)
 
 
 panels <- read_html("https://www.riddles.com/riddle-of-the-day") %>% 
@@ -9,8 +10,14 @@ panels <- read_html("https://www.riddles.com/riddle-of-the-day") %>%
 
 
 riddle <- panels %>% 
-  html_nodes(".orange_dk_span") %>% 
-  html_text2() 
+  html_nodes(".panel-body.lead") %>%
+  # html_nodes(".orange_dk") %>% 
+  # .[str_detect(as.character(.), "panel-body lead")] %>% 
+  # html_nodes("") %>%
+  html_text2() %>% 
+  str_split("\nAnswer") %>% 
+  purrr::map_chr(~.x[1]) %>% 
+  str_remove("Riddle: ")
 
 riddle_link <- panels %>% 
   html_nodes(".panel-heading")%>% 
